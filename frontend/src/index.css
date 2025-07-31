@@ -1,0 +1,126 @@
+@layer tailwind-base, primereact, tailwind-utilities;
+
+@layer tailwind-base {
+  @tailwind base;
+}
+
+@layer tailwind-utilities {
+  @tailwind components;
+  @tailwind utilities;
+}
+:root {
+  --darkgreen: rgb(31, 93, 79);
+  --darkgreenOpacity: rgb(31, 93, 79, 0.5);
+  --darkgreenLowOpacity: rgb(31, 93, 79, 0.03);
+  --darkblue: #00cfff;
+  --darkred: #ff0000;
+  --primary-color: rgb(31, 93, 79);
+  --primary-color-hover: #4ddfc0;
+  --background-color: #1a1f1a;
+}
+
+body {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+input {
+  color: #4ddfc0;
+  border: 1px solid var(--darkgreen);
+  height: 3rem;
+  margin: 0.25rem;
+
+  &:hover {
+    background: var(--darkgreenOpacity);
+    opacity: 0.9;
+    color: #4ddfc0;
+    box-shadow: 2px 2px 5px var(--darkgreen);
+    
+  }
+}
+
+button {
+padding:1rem;
+  height: 3rem;
+  margin: 0.25rem;
+  border: 1px solid var(--darkgreen);
+   &:hover {
+    background: var(--darkgreenOpacity);
+    opacity: 0.9;
+    color: #4ddfc0;
+    box-shadow: 2px 2px 5px var(--darkgreen);
+  }
+}
+
+.p-dialog-header-icon{
+  padding:0 !important
+}
+
+.maincontainer {
+  height: calc(100vh - 98px);
+  box-sizing: border-box;
+  position: relative;
+  opacity: 0.7;
+  border: 1px solid #4ddfc0;
+  overflow: hidden;
+}
+
+.fullcontainer {
+  height:100vh;
+  box-sizing: border-box;
+  position: relative;
+  opacity: 0.7;
+  overflow: hidden;
+  width:100vw;
+}
+
+.fullcontainer:after {
+  content: " ";
+  display: block;
+  position: absolute;
+  box-sizing: border-box;
+  padding: auto;
+  width: 100vw;
+  height: calc(100vh);
+  z-index: -10;
+  opacity: 0.07;
+  background-image: url("../src/assets/images/icononly_transparent_nobuffer.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: calc(100vh);
+  overflow: hidden;
+}
+
+.maincontainer:after {
+  content: " ";
+  display: block;
+  position: absolute;
+  box-sizing: border-box;
+  padding: auto;
+  width: 100%;
+  height: calc(100vh - 100px);
+  z-index: -10;
+  opacity: 0.07;
+  border: 10px solid blue;
+  background-image: url("../src/assets/images/icononly_transparent_nobuffer.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: calc(100vh - 100px);
+  overflow: scroll;
+}
+
+.p-menuitem-text {
+  color: #4ddfc0;
+}
+
+.p-menuitem-icon {
+  color: #4ddfc0;
+}
+
+.p-menuitem-end {
+  color: #4ddfc0;
+}
+#root {
+  height: 100%;
+}

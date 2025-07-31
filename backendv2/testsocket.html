@@ -1,0 +1,91 @@
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>WebSocket Bot Tester</title>
+  <style>
+    body { font-family: sans-serif; max-width: 600px; margin: 2rem auto; }
+    input, button { padding: 8px; margin: 4px; width: 100%; }
+    textarea { width: 100%; height: 100px; margin-top: 10px; }
+    ul { list-style: none; padding: 0; max-height: 300px; overflow-y: scroll; background: #f0f0f0; }
+    li { padding: 4px; border-bottom: 1px solid #ccc; }
+    .label { font-weight: bold; margin-top: 1rem; display: block; }
+  </style>
+</head>
+<body>
+
+  <h2>WebSocket Bot & Client Tester</h2>
+
+  <label class="label">Your Client ID (userID or botID)</label>
+  <input type="text" id="clientID" placeholder="e.g., admin123 or bot-1">
+
+  <label class="label">Target ID (leave empty to broadcast)</label>
+  <input type="text" id="toID" placeholder="e.g., bot-2">
+
+  <label class="label">Message</label>
+  <textarea id="msg" placeholder="Write your message here..."></textarea>
+
+  <button onclick="connect()">Connect</button>
+  <button onclick="sendMessage()">Send Message</button>
+
+  <label class="label">Received Messages</label>
+  <ul id="chat"></ul>
+
+  <script>
+    let socket = null;
+
+    function connect() {
+      const clientID = document.getElementById('clientID').value.trim();
+      if (!clientID) return alert("Please enter your client ID");
+
+      // If it's a bot, connect via /ws/bot — otherwise use /ws
+      const isBot = clientID.startsWith("bot-");
+      const endpoint = isBot ? `/ws/bot?botID=${clientID}` : `/ws?userID=${clientID}`;
+
+      socket = new WebSocket(`ws://${location.host}${endpoint}`);
+
+      socket.onopen = () => {
+        log(`✅ Connected as "${clientID}"`);
+      };
+
+      socket.onmessage = (e) => {
+        log(`📥 ${e.data}`);
+      };
+
+      socket.onerror = (e) => {
+        log(`❌ Error: ${e.message}`);
+      };
+
+      socket.onclose = () => {
+        log(`🔌 Connection closed`);
+      };
+    }
+
+    function sendMessage() {
+      if (!socket || socket.readyState !== WebSocket.OPEN) {
+        return alert("WebSocket is not connected.");
+      }
+
+      const to = document.getElementById('toID').value.trim();
+      const msg = document.getElementById('msg').value.trim();
+
+      const payload = {
+        to: to || "", // broadcast if empty
+        msg: msg
+      };
+
+      socket.send(JSON.stringify(payload));
+      log(`📤 Sent: ${JSON.stringify(payload)}`);
+    }
+
+    function log(message) {
+      const chat = document.getElementById('chat');
+      const li = document.createElement('li');
+      li.textContent = message;
+      chat.appendChild(li);
+      chat.scrollTop = chat.scrollHeight;
+    }
+  </script>
+
+</body>
+</html>

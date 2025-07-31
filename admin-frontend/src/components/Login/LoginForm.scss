@@ -1,0 +1,38 @@
+
+.login-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width:25%;
+  border: 1px solid #00fefc;
+
+  .p-card-body {
+    width:100%;
+  }
+
+  .p-card-content{
+    display: flex;
+    flex-direction: column;
+    width:100%
+  }
+
+  .login-form-input {
+    width:80%;
+    margin: auto;
+    margin-top:5px;
+  }
+
+  .login-footer {
+    display: flex;
+    flex-direction: column;
+    min-width: 40%;
+    align-items: center;
+
+    .login-button {
+      margin-top: 5px;
+      margin-bottom: 5px;
+      min-width:50%;
+      
+    }
+  }
+}

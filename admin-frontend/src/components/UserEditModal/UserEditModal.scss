@@ -1,0 +1,31 @@
+.user-edit-modal-container {
+  position: relative;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  height: 70vh;
+  width:100%;
+  z-index: 100;
+
+
+  .user-edit-modal-card {
+    overflow: auto;
+    width:50% !important;
+    height: 100%;
+    border:1px solid blue;
+
+    .p-card-body {
+      height:100%;
+    }
+  }
+}
+
+.user-edit-modal-footer {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  bottom:20px;
+  width:100%;
+}
+

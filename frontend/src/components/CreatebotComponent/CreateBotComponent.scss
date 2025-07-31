@@ -1,0 +1,82 @@
+.create-bot-form {
+  width: 40%;
+  border: 1px solid var(--darkgreen);
+  margin: auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  
+   .file-upload-component {
+     background-color: var(--darkgreenOpacity);
+     width: 50%;
+     margin: auto;
+  }
+
+  .create-bot-form-input-group {
+
+    width:100%;
+    margin-bottom: 50px;
+    margin-top: 20px;
+   
+    .bot-details-form-group{
+      width:100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  
+      .bot-details-name {
+        width:50%;
+      }
+    }
+    .bot-passwords-form-group{
+      width:100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .create-bot-password {
+        
+        width: 50%;
+      }
+    }
+  }
+
+  .custom-choose-btn {
+    background-color: var(--darkgreen);
+    color: black;
+  }
+
+  .custom-choose-btn:hover {
+    background-color: var(--darkgreen);
+    color: var(--surface-d);
+  }
+
+}
+
+@media only screen and (max-width: 900px) {
+  .create-bot-form {
+    width: 100%;
+
+    .create-bot-form-input-group {
+
+      width:100%;
+  
+      .bot-details-form-group{
+        width:100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    
+        .bot-details-name {
+          width:100%;
+        }
+      }
+      .bot-passwords-form-group{
+        width:100%;
+
+        .create-bot-password {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

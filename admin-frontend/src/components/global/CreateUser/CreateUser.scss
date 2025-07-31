@@ -1,0 +1,65 @@
+.create-user-from-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 100;
+  height: 400px;
+  max-height: 100%;
+  max-width: 800%;
+  width: 400px;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  padding: 0;
+
+  .close-button-container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    width: 400px;
+    padding: 4px;
+  }
+
+  .create-user-confirm-button {
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    width: 200px;
+    height: 40px;
+    transform: translate(-50%, -50%);
+
+    &:active {
+      position: absolute;
+      bottom: 5px;
+      left: 50%;
+      width: 200px;
+      height: 40px;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  .create-user-form {
+    display: flex;
+    flex-direction: column;
+    width: 380px;
+    padding: 10px;
+
+    .create-user-button {
+      width: 380px;
+      height: 40px;
+      margin: 5px 0;
+
+    }
+  }
+
+  .p-card-body {
+    padding: 0px;
+  }
+
+  .p-card-content {
+    padding: 0px;
+  }
+}

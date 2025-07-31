@@ -1,0 +1,47 @@
+## Preps
+# dev | prod
+ARG RUN_MODE=dev
+ARG API_ENV=dev
+
+#Configs
+
+## Dev mode
+FROM node:18-bullseye as dev
+ARG API_ENV
+WORKDIR /app
+
+
+ADD ./ /app/
+RUN npm install
+
+CMD ["/bin/bash", "./scripts/entrypoint-dev.sh"]
+
+## Build Stage
+FROM node:18-bullseye as build
+ARG API_ENV
+WORKDIR /usr/app
+
+ADD ./ /usr/app/
+RUN npm install
+RUN npm run build
+
+## Prod mode
+FROM node:18-bullseye-slim as prod
+ARG API_ENV
+WORKDIR /usr/app
+
+
+RUN apt-get update
+RUN apt-get install curl --assume-yes
+
+ADD ./package.json /usr/app
+ADD ./scripts/entrypoint-prod.sh /usr/app
+COPY --from=build /usr/app/dist /usr/app
+RUN mkdir -p ./logs
+
+RUN npm install --omit=dev
+
+CMD ["/bin/bash", "./entrypoint-$RUN_MODE.sh"]
+
+## Pick which mode to use
+FROM ${RUN_MODE}

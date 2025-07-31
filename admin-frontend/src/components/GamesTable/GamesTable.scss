@@ -1,0 +1,9 @@
+.selected-game-row {
+  outline: 2px solid #4ddfc0;
+  outline-offset: -2px;
+  color: #fff;
+}
+
+.selected-game-row:hover {
+  background-color: var(--secondary-color);
+}

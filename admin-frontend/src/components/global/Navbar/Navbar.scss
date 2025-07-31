@@ -1,0 +1,100 @@
+.nav-bar {
+  .p-menubar {
+    background-color: #2d2d2d;
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+
+    // Logo area
+    .p-menubar-start {
+      .h-20 {
+        height: 40px;
+        margin-right: 1rem;
+      }
+    }
+
+    // Menu items
+    .p-menubar-root-list {
+      > .p-menuitem {
+        > .p-menuitem-link {
+          padding: 0.75rem 1rem;
+          color: #e0e0e0;
+          transition: background-color 0.2s;
+
+          &:hover {
+            background-color: #363636;
+          }
+
+          .p-menuitem-text {
+            color: #e0e0e0;
+          }
+
+          .p-menuitem-icon {
+            color: #e0e0e0;
+          }
+        }
+
+        &.p-highlight {
+          > .p-menuitem-link {
+            background-color: #363636;
+          }
+        }
+      }
+    }
+
+    // End section (user actions)
+    .p-menubar-end {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+
+      .p-button {
+        background-color: transparent;
+        border: 1px solid #404040;
+        color: #e0e0e0;
+        transition: all 0.2s;
+
+        &:hover {
+          background-color: #363636;
+          border-color: #505050;
+        }
+
+        &.p-button-danger {
+          border-color: #da3633;
+          color: #da3633;
+
+          &:hover {
+            background-color: #da3633;
+            color: #ffffff;
+          }
+        }
+
+        // User button
+        &.p-button-icon-only {
+          width: 2.5rem;
+          height: 2.5rem;
+        }
+      }
+    }
+  }
+
+  // Mobile responsive
+  @media screen and (max-width: 960px) {
+    .p-menubar {
+      .p-menubar-button {
+        color: #e0e0e0;
+      }
+
+      .p-menubar-root-list {
+        background-color: #2d2d2d;
+        
+        .p-menuitem {
+          .p-menuitem-link {
+            border-radius: 0;
+          }
+        }
+      }
+    }
+  }
+}
+// add variables

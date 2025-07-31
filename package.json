@@ -1,0 +1,13 @@
+{
+  "devDependencies": {
+    "@types/node": "^20.17.11"
+  },
+  "dependencies": {
+    "@types/socket.io-client": "^3.0.0"
+  },
+  "scripts": {
+    "dev:backend": "cd backendv2 && CompileDaemon --build=\"go build -o main.exe .\" --command=\"./main.exe\"",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\""
+  }
+}

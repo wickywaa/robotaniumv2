@@ -1,0 +1,96 @@
+services:
+  robotaniumFrontend:
+    image: newfrontendrobotanium:latest
+    restart: unless-stopped
+    build:
+      context: ./frontend
+      dockerfile: ./Dockerfile
+  adminFrontend:
+    image: admin-frontend:latest
+    restart: unless-stopped
+    build:
+      context: ./admin-frontend
+      dockerfile: ./Dockerfile
+    ports: 
+     -  3000:3000
+  web-proxy:
+    image: web-proxy:latest
+    restart: unless-stopped
+    build:
+      context: ./web-proxy
+      dockerfile: ./Dockerfile
+    ports:
+      - 47000:80
+    healthcheck:
+      test: ["CMD", "curl", "-I", "127.0.0.1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    deploy:
+      mode: replicated
+      replicas: 1
+    depends_on:
+      - backendv2
+      - postgres
+  adminer:
+    image: adminer:latest
+    restart: always
+    ports:
+      - "8081:8080"
+    environment:
+      ADMINER_DEFAULT_SERVER: postgres
+      ADMINER_DESIGN: flat  # Optional: nicer UI
+    depends_on:
+      - postgres
+
+  backendv2:
+    image: backendv2:${BUILD_ENV:-dev}
+    build:
+      context: ./backendv2
+      dockerfile: Dockerfile
+      args:
+        - BUILD_ENV=${BUILD_ENV:-dev}
+    ports:
+      - "8080:8080"
+      - "40000:40000"  # Debug port (only used in dev)
+    volumes:
+      - ./backendv2:/app 
+      - /app/tmp # Only mounted in dev
+    security_opt:
+      - "seccomp:unconfined"  # Only needed in dev
+    cap_add:
+      - SYS_PTRACE  # Only needed in dev
+    environment:
+      - GO_ENV=${BUILD_ENV:-development}
+      - DB_HOST=${POSTGRES_HOST}
+      - DB_PORT=${POSTGRES_PORT}
+      - DB_USER=${POSTGRES_USER}
+      - DB_PASSWORD=${POSTGRES_PASSWORD}
+      - DB_NAME=${POSTGRES_DB}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - MAIL_USER=${MAIL_USER}
+      - MAILJET_API_KEY=${MAILJET_API_KEY}
+      - MAILJET_API_SECRET=${MAILJET_API_SECRET}
+      - MAILJET_FROM_EMAIL=${MAILJET_FROM_EMAIL}
+      - MAILJET_FROM_NAME=${MAILJET_FROM_NAME}
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

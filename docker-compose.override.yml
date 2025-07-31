@@ -1,0 +1,11 @@
+version: "3.4"
+
+services:
+  robotaniumFrontend:
+    volumes:
+      - /app/node_modules
+      - ./frontend:/app
+  adminFrontend:
+    volumes:
+      - /app/node_modules
+      - ./admin-frontend:/app 
