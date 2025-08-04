@@ -49,9 +49,6 @@ export const CreateEditBotComponent: React.FC<CreateBotInterface> = ({ onSubmit,
 
     const emptyNames =  cockpits.some((cockpit)=> cockpit.name.length < 3) ?? false;
 
-    console.log('empty names', emptyNames)
-    console.log('has duplicates', hasDuplicates)
-
     if(emptyNames) errors.push('Cameras need to include a name ');
     if(hasDuplicates.length) errors.push('Camera names must all be unique')
 
