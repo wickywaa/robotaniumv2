@@ -33,6 +33,7 @@ const titles = {
 
 export const CreateEditBotComponent: React.FC<CreateBotInterface> = ({ onSubmit, mode, bot }) => {
   const toast = useRef<Toast>(null);
+  const [errors, setErrors] = useState<string[]>([]);
   const [totalSize, setTotalSize] = useState(0);
   const [botName, setBotName] = useState('');
   const [password, setPassword] = useState('');
@@ -41,7 +42,42 @@ export const CreateEditBotComponent: React.FC<CreateBotInterface> = ({ onSubmit,
   const [showCurrentImage, setShowCurrentImage] = useState<boolean>(true)
   const [showPassword, setShowPassword] = useState<boolean>(false)
 
+  const getCameraErrors = (): string[] => {
+    const errors = [];
+    const cockpitNames =  cockpits.filter((cockpit)=>cockpit.name.length >3).map((c)=>c.name)
+    const hasDuplicates = cockpitNames.filter((name,index, array )=> array.indexOf(name) !== index)
+
+    const emptyNames =  cockpits.some((cockpit)=> cockpit.name.length < 3) ?? false;
+
+    console.log('empty names', emptyNames)
+    console.log('has duplicates', hasDuplicates)
+
+    if(emptyNames) errors.push('Cameras need to include a name ');
+    if(hasDuplicates.length) errors.push('Camera names must all be unique')
+
+    return errors;
+  } 
+
+
+  const isFormValid = (): boolean => {
+
+
+    const cameraErrors = getCameraErrors()
+    const tempErrors = [];
+    if (!botName) tempErrors.push('Bot name is required');
+    if (password.length < 3) tempErrors.push('Password needs to contain atleast 3 characters');
+    if (cameraErrors.length) tempErrors.push(...cameraErrors);
+
+
+    setErrors(tempErrors)
+
+    return tempErrors.length === 0;
+  }
+
+
   const handleCreateBot = () => {
+
+    if (!isFormValid()) return;
 
     const files = fileUploadRef && fileUploadRef.current ? fileUploadRef.current?.getFiles() : [];
 
@@ -60,7 +96,6 @@ export const CreateEditBotComponent: React.FC<CreateBotInterface> = ({ onSubmit,
     const cockpits: { name: string, id: number }[] = []
 
     if (bot?.cockpits) bot.cockpits.forEach((cp) => cockpits.push({ name: cp.name, id: cp.id }))
-    console.log('cockpits', cockpits)
     setCockpits(cockpits)
   }, [])
 
@@ -180,13 +215,20 @@ export const CreateEditBotComponent: React.FC<CreateBotInterface> = ({ onSubmit,
             <i style={{ color: '#4ddfc0' }} onClick={() => setShowPassword(!showPassword)} className={`absolute hoverIcon  right-2 top-4 ${!showPassword ? 'pi pi-eye' : 'pi pi-eye-slash'}`}></i>
           </div>
         </div>
+        <div style={{ width: '50%', margin: 'auto' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Button style={{ maxHeight: '30px', }} disabled={cockpits.length < 1} onClick={() => setCockpits(cockpits.slice(0, -1))} icon='pi pi-minus' />
+            <h3>Cameras</h3>
+            <Button style={{ maxHeight: '30px', }} onClick={() => setCockpits([...cockpits, { id: Math.max(...cockpits.map((cp) => cp.id)) + 1, name: '' }])} icon='pi pi-plus' />
+          </div>
+        </div>
 
-        <Button style={{ maxHeight: '30px', marginLeft: '28%' }} disabled={cockpits.length < 2} onClick={() => setCockpits(cockpits.slice(0, -1))} icon='pi pi-minus' />
-        <Button style={{ maxHeight: '30px', marginLeft: '28%' }} onClick={() => setCockpits([...cockpits, { id: Math.max(...cockpits.map((cp) => cp.id)) + 1, name: '' }])} icon='pi pi-plus' />
+
+
         <div style={{ display: 'flex', height: '70%', boxSizing: 'border-box', width: '100%' }} >
           <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
             {cockpits.map((cockpit, key) => {
-              return (<div key={cockpit.id} style={{ display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'center' }}><InputText key={cockpit.id} value={cockpit.name} style={{ width: '50%', }} onChange={(event) => handleCockpitChange(cockpit.id, event.target.value)} placeholder={`cockpit ${key + 1}`} /></div>)
+              return (<div key={cockpit.id} style={{ display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'center' }}><InputText key={cockpit.id} value={cockpit.name} style={{ width: '50%', }} onChange={(event) => handleCockpitChange(cockpit.id, event.target.value)} placeholder={`Camera ${key + 1}`} /></div>)
             })}
           </div>
         </div>
@@ -201,8 +243,11 @@ export const CreateEditBotComponent: React.FC<CreateBotInterface> = ({ onSubmit,
       </div>
 
       {showCurrentImage && bot?.imageUrl?.length ? <img alt='bot' src={bot?.imageUrl} /> : null}
-      <div style={{ display: 'flex', width: '100%', justifyContent: 'center' }}>
+      <div style={{ display: 'flex', width: '100%', justifyContent: 'center', }}>
         <Button onClick={handleCreateBot} style={{ padding: '1rem' }} label={`${titles[mode].submitButton}`} />
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', width: '70%', marginLeft: '25%', }}>
+        {errors.map((error, index) => (<li key={index} style={{ listStyle: 'inside', color: 'red' }}>{error}</li>))}
       </div>
 
     </div>
