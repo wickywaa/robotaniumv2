@@ -13,7 +13,7 @@ export const ToastComponent: React.FC = () => {
 
   useEffect(() => {
     if (toastMessage.message.length > 1 && toast !== null) {
-      toast.current?.show({ severity: `${toastMessage.severity}` ?? undefined, summary: 'Info', detail: `${toastMessage.message}` });
+      toast.current?.show({ severity: `${toastMessage.severity}`, summary: 'Info', detail: `${toastMessage.message}` });
     }
     dispatch(addMessage({ message: '', severity: 'warn' }))
 
@@ -23,7 +23,7 @@ export const ToastComponent: React.FC = () => {
 
   return (
     <div className="card flex justify-content-center">
-      <Toast ref={toast} />
+      <Toast   ref={toast} />
     </div>
   )
 }

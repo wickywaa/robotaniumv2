@@ -66,6 +66,10 @@ button {
   height: 2.5rem;
   width: 2.5rem;
 }
+.p-toast-icon-close{
+  height: 2.5rem;
+  width: 2.5rem;
+}
 .p-dialog-header-icon {
   padding: 0.5rem !important;
 }
