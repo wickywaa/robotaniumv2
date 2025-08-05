@@ -10,7 +10,13 @@
      background-color: var(--darkgreenOpacity);
      width: 50%;
      margin: auto;
+
+   
+
   }
+  .custom-choose-btn .p-tooltip  {
+      background-color: red;
+     }
 
   .create-bot-form-input-group {
 
@@ -43,6 +49,7 @@
   .custom-choose-btn {
     background-color: var(--darkgreen);
     color: black;
+    
   }
 
   .custom-choose-btn:hover {

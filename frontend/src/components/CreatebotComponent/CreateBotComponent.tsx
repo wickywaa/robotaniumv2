@@ -104,18 +104,11 @@ export const CreateEditBotComponent: React.FC<CreateBotInterface> = ({ onSubmit,
       _totalSize += files[i].size || 0;
     }
 
-    setTotalSize(_totalSize);
-  };
-
-  const onTemplateUpload = (e: FileUploadUploadEvent) => {
-    let _totalSize = 0;
-
-    e.files.forEach((file) => {
-      _totalSize += file.size || 0;
-    });
+    if(_totalSize > 10000000) {
+      return setErrors([...errors, 'too big'])
+    }
 
     setTotalSize(_totalSize);
-    toast.current?.show({ severity: 'info', summary: 'Success', detail: 'File Uploaded' });
   };
 
   const onTemplateRemove = (file: File, callback: Function) => {
@@ -232,8 +225,9 @@ export const CreateEditBotComponent: React.FC<CreateBotInterface> = ({ onSubmit,
       </div>
       <div className='file-upload-component'>
         <FileUpload
+          className='fileupload'
           multiple={false}
-          ref={fileUploadRef} name="demo[]" url="/api/upload" accept="image/*" maxFileSize={20000000}
+          ref={fileUploadRef} name="demo[]" url="/api/upload" accept="image/*" maxFileSize={1000000}
           onSelect={onTemplateSelect} onError={onTemplateClear} onClear={onTemplateClear}
           headerTemplate={headerTemplate} itemTemplate={itemTemplate} emptyTemplate={emptyTemplate}
           chooseOptions={chooseOptions} cancelOptions={cancelOptions} />
