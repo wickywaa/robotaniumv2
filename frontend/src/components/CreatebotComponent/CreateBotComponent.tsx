@@ -227,7 +227,7 @@ export const CreateEditBotComponent: React.FC<CreateBotInterface> = ({ onSubmit,
         <FileUpload
           className='fileupload'
           multiple={false}
-          ref={fileUploadRef} name="demo[]" url="/api/upload" accept="image/*" maxFileSize={1000000}
+          ref={fileUploadRef} name="demo[]" url="/api/upload" accept="image/*" maxFileSize={2000000}
           onSelect={onTemplateSelect} onError={onTemplateClear} onClear={onTemplateClear}
           headerTemplate={headerTemplate} itemTemplate={itemTemplate} emptyTemplate={emptyTemplate}
           chooseOptions={chooseOptions} cancelOptions={cancelOptions} />
