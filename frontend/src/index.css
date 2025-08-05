@@ -36,25 +36,42 @@ input {
     opacity: 0.9;
     color: #4ddfc0;
     box-shadow: 2px 2px 5px var(--darkgreen);
-    
   }
 }
 
 button {
-padding:1rem;
-  height: 3rem;
   margin: 0.25rem;
+  padding: 0.5rem;
+  height: 3rem;
   border: 1px solid var(--darkgreen);
-   &:hover {
+  &:hover {
     background: var(--darkgreenOpacity);
     opacity: 0.9;
     color: #4ddfc0;
     box-shadow: 2px 2px 5px var(--darkgreen);
   }
+
+  button svg {
+    fill: currentColor; /* Inherits the color from the button */
+  }
 }
 
-.p-dialog-header-icon{
-  padding:0 !important
+.p-message-close {
+  height: 2.5rem;
+
+  width: 50%;
+  padding: 0.5rem;
+}
+.p-dialog-header-close {
+  height: 2.5rem;
+  width: 2.5rem;
+}
+.p-dialog-header-icon {
+  padding: 0.5rem !important;
+}
+
+.p-dialog-header-icon {
+  padding: 0 !important;
 }
 
 .maincontainer {
@@ -67,12 +84,12 @@ padding:1rem;
 }
 
 .fullcontainer {
-  height:100vh;
+  height: 100vh;
   box-sizing: border-box;
   position: relative;
   opacity: 0.7;
   overflow: hidden;
-  width:100vw;
+  width: 100vw;
 }
 
 .fullcontainer:after {
@@ -121,6 +138,13 @@ padding:1rem;
 .p-menuitem-end {
   color: #4ddfc0;
 }
+
+.p-tooltip-text {
+  background-color: var(--darkgreen);
+  color: white;
+  font-size: 0.875rem;
+}
+
 #root {
   height: 100%;
 }
