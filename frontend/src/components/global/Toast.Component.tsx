@@ -23,7 +23,7 @@ export const ToastComponent: React.FC = () => {
 
   return (
     <div className="card flex justify-content-center">
-      <Toast ref={toast} />
+      <Toast life={10000}  ref={toast} />
     </div>
   )
 }
