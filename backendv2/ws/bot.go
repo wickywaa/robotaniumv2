@@ -3,7 +3,9 @@ package ws
 import (
 	models "backendv2/models"
 	"encoding/json"
+	"fmt"
 	"log"
+	"time"
 
 	"github.com/gofiber/websocket/v2"
 )
@@ -16,6 +18,12 @@ type BotClient struct {
 }
 
 func (c *BotClient) ReadPump() {
+
+	c.Conn.SetReadDeadline(time.Now().Add(60 * time.Second))
+	c.Conn.SetPongHandler(func(string) error {
+		c.Conn.SetReadDeadline(time.Now().Add(60 * time.Second))
+		return nil
+	})
 	defer func() {
 		c.Hub.UnRegisterBot <- c
 		c.Conn.Close()
@@ -24,6 +32,7 @@ func (c *BotClient) ReadPump() {
 	for {
 		_, message, err := c.Conn.ReadMessage()
 		if err != nil {
+			fmt.Println("Read error:", err)
 			break
 		}
 		c.Hub.Broadcast <- message
@@ -43,7 +52,6 @@ func (c *BotClient) ReadPump() {
 }
 
 func (c *BotClient) WritePump() {
-	defer c.Conn.Close()
 
 	for {
 		msg, ok := <-c.Send

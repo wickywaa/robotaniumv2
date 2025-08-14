@@ -36,7 +36,6 @@ func main() {
 
 	// Add Fiber's built-in logger
 	app.Use(logger.New())
-	app.Static("/", "./")
 
 	// Add our custom debug logger
 	app.Use(func(c *fiber.Ctx) error {
@@ -59,14 +58,18 @@ func main() {
 	routes.SetupRoutes(app, hub)
 
 	// Optional middleware to upgrade only certain paths
-	app.Use("/ws", func(c *fiber.Ctx) error {
+	/* app.Use("/api/v2/bot/ws", func(c *fiber.Ctx) error {
+
+		println("hell 22o")
 		if websocket.IsWebSocketUpgrade(c) {
+			println("upgraded")
 			return c.Next()
 		}
 		return fiber.ErrUpgradeRequired
-	})
+	}) */
 
 	app.Get("/ws", websocket.New(func(c *websocket.Conn) {
+		println(("hello again"))
 		defer c.Close()
 		for {
 			msgType, msg, err := c.ReadMessage()

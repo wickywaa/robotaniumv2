@@ -8,10 +8,10 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
+func SetupBotRoutes(api fiber.Router, hub *ws.Hub) {
+	bots := api.Group("/bot")
 
-
-func SetupBotRoutes(api fiber.Router, hub *ws.Hub ) {
-	bots := api.Group("/bots")
+	bots.Get("/ws", ws.ServeWS(hub))
 	// Get all bots (for robotanium admins) or user's bots (for regular users)
 	bots.Get("", middleware.AuthMiddleware(), controllers.GetBotsByUserId)
 
@@ -27,5 +27,4 @@ func SetupBotRoutes(api fiber.Router, hub *ws.Hub ) {
 	// Delete bot (only if user owns it or is robotanium admin)
 	bots.Delete("/:id", middleware.AuthMiddleware(), controllers.DeleteBot)
 
-	bots.Get("/ws/bot", ws.ServeWS(hub))
 }
