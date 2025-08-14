@@ -16,7 +16,7 @@ import (
 func AuthMiddleware() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		// Get the Authorization header
-		fmt.Println("hello")
+		fmt.Println("hello auth")
 		authHeader := c.Get("Authorization")
 		if authHeader == "" {
 			return c.Status(401).JSON(fiber.Map{"error": "Authorization header is required"})
@@ -27,7 +27,6 @@ func AuthMiddleware() fiber.Handler {
 		if len(tokenString) == 0 {
 			return c.Status(401).JSON(fiber.Map{"error": "Invalid authorization header format"})
 		}
-
 
 		// Parse and validate the token
 		token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {

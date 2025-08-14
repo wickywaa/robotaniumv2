@@ -1,27 +1,41 @@
 package ws
 
 import (
+	"fmt"
 	"log"
 
+	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/websocket/v2"
-	"github.com/gofiber/fiber/v2" 
 )
 
 func ServeWS(hub *Hub) fiber.Handler {
+	println("anything")
 	return websocket.New(func(conn *websocket.Conn) {
-		userID := conn.Query("userID") // or get from Locals if passed before
+		if conn == nil {
+			fmt.Println("ERROR: WebSocket upgrade failed, got nil conn")
+			return
+		}
 
-		client := &Client{
-			ID:   userID,
+		println("made it here 2")
+		botID := conn.Query("botID")
+		if botID == "" {
+			println("Bot connection missing botID, closing")
+			conn.Close()
+			return
+		}
+
+		bot := &BotClient{
+			ID:   botID,
 			Hub:  hub,
 			Conn: conn,
 			Send: make(chan []byte, 256),
 		}
 
-		hub.Register <- client
+		hub.RegisterBot <- bot
 
-		go client.WritePump()
-		go client.ReadPump()
+		go bot.WritePump()
+		bot.Send <- []byte(`{"type":"system","message":"connected"}`)
+		bot.ReadPump()
 	})
 }
 
