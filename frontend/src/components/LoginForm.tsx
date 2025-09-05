@@ -25,13 +25,13 @@ export const LoginForm = () => {
   const footer = (
     <>
       <div className="w-full flex flex-column justify-center items-center">
-        <Button onClick={() => handleLogin()} className="bg-secondary text-white w-32 h-8 " label="login" title="login" />
+        <Button onClick={() => handleLogin()} className="bg-secondary text-primary-color w-32 h-8 " label="login" title="login" />
       </div>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-        <a style={{ color: "#4ddfc0" }} href="/register">
+        <a className="text-primary" href="/register">
           Register account
         </a>
-        <a style={{ color: "#4ddfc0" }} href="/forgotpassword">
+        <a className="text-primary" href="/forgotpassword">
           Forgot password?
         </a>
       </div>
@@ -103,7 +103,7 @@ export const LoginForm = () => {
     return !user ? (
       <Card
         footer={footer}
-        className="loginform  m-auto m-2 p-2 min-h-72 relative flex-column justify-center items-center border border-secondary md:w-4/5 lg:w-2/4 p-8 xl:w-1/5"
+        className=" bg-card m-auto m-2 p-2 min-h-72 relative flex-column justify-center items-center border border-primary md:w-4/5 lg:w-2/4 p-8 xl:w-1/5"
       >
 
         <InputText
@@ -129,7 +129,7 @@ export const LoginForm = () => {
             onKeyUp={onFormEnter}
 
           />
-          <i style={{ color: '#4ddfc0' }} onClick={() => setShowPassword(!showPassword)} className={`absolute hoverIcon  right-2 top-5 ${!showPassword ? 'pi pi-eye' : 'pi pi-eye-slash'}`}></i>
+          <i  onClick={() => setShowPassword(!showPassword)} className={`absolute hoverIcon fill-current text-primary current-primary right-2 top-5 ${!showPassword ? 'pi pi-eye' : 'pi pi-eye-slash'}`}></i>
         </div>
       </Card>
     ) : !user.isEmailVerified ? (

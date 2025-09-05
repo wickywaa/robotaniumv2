@@ -6,6 +6,7 @@ import { Button } from 'primereact/button';
 import { Menubar } from "primereact/menubar";
 import { MenuItem } from "primereact/menuitem";
 import robotaniumLogo from "../../../assets/images/icononly_transparent_nobuffer.png";
+import { GavoomLogo } from "../../../assets/images/svglogo";
 import { selectUser } from "../../../store/selectors";
 import { logoutAttempt } from "../../../store/slices";
 
@@ -22,9 +23,11 @@ export const NavigationBar: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const start = () => <img className="h-20" src={robotaniumLogo} />;
+  const start = () => {
+    return <div style={{height:"200", width:"100px", background:'red'}} ><GavoomLogo /></div>
+  } ;
   const end = () => {
-    return <Button onClick={(() => dispatch(logoutAttempt()))} style={{ color: '#4ddfc0', }} title="Logout">logout</Button>
+    return <Button className="text-primary border-primary border-solid border-1 border-primary" onClick={(() => dispatch(logoutAttempt()))} title="Logout">logout</Button>
   };
   const items: IMenuItemWithBadge[] = [
     {
@@ -47,8 +50,8 @@ export const NavigationBar: React.FC = () => {
   ] as IMenuItemWithBadge[];
 
   return (
-    <div style={{ position: 'relative' }} className="border border-secondary bg-primaary  opacity-30" >
-      <Menubar key={user?.id} className="bg-primary color-primary" model={items} start={start} end={user?.id ? end : null} />
+    <div style={{ position: 'relative' }} className="border border-secondary bg-primaary" >
+      <Menubar key={user?.id} className="bg-card" model={items} start={start} end={user?.id ? end : null} />
     </div>
   );
 };
