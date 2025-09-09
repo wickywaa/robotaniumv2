@@ -36,7 +36,7 @@ func DeleteBot(c *fiber.Ctx) error {
 	}
 
 	if authenticatedUser.IsRobotaniumAdmin {
-		query.Where("id = ?", id, authenticatedUser.ID)
+		query.Where("id = ?", id)
 	}
 
 	if query.Error != nil {
