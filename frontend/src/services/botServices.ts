@@ -17,7 +17,7 @@ export class BotService {
     formData.append("payload",JSON.stringify(payload))
 
     try {
-      return baseAxios.post('bots',formData,{ headers: {
+      return baseAxios.post('bot',formData,{ headers: {
         'Content-Type': 'multipart/form-data'
       }}
     )
@@ -31,7 +31,7 @@ export class BotService {
 
     try {
       console.log('trying to return bots')
-        return baseAxios.get('bots')
+        return baseAxios.get('bot')
     } 
     catch (e:any) {
       throw new Error("invalid request", e)
@@ -39,7 +39,7 @@ export class BotService {
     
   }
 
-  deleteBots = async(id:string): Promise<void> =>baseAxios.delete(`bots/${id}`)
+  deleteBots = async(id:string): Promise<void> =>baseAxios.delete(`bot/${id}`)
 
   updatebots = async (id:string, bot: ICreateBotDTo): Promise<void> =>{
 
@@ -55,7 +55,7 @@ export class BotService {
     formData.append("payload",JSON.stringify(payload))
 
     try {
-      return baseAxios.put(`bots/${id}`,formData,{ headers: {
+      return baseAxios.put(`/bot/${id}`,formData,{ headers: {
         'Content-Type': 'multipart/form-data'
       }}
     )

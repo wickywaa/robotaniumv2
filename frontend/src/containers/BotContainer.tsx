@@ -47,7 +47,6 @@ export const BotContainer: React.FC = () => {
   };
 
   const handleOnEdit = (bot: IBot) => {
-    console.log("afsdd", bot);
     setShowEditDialog({
       open: true,
       bot,
@@ -73,8 +72,7 @@ export const BotContainer: React.FC = () => {
               { label: "Online Bots", value: "online" },
             ]}
             onChange={(e) => setFilter(e.value)}
-            className="mr-3 border-secondary border "
-            
+            className="mr-3 border-primary border "
           />
 
           <Button label="Create Bot" icon="pi pi-plus" onClick={() => setShowCreateDialog(true)} />
@@ -85,6 +83,7 @@ export const BotContainer: React.FC = () => {
         {bots.map((bot) => {
           return (
             <BotCard
+              key={bot.id}
               onEdit={handleOnEdit}
               bot={bot}
               onConnect={handleConnectBot}

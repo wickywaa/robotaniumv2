@@ -4,13 +4,12 @@
   flex-direction: column;
   align-items: center;
   padding: 2rem;
-  background-color: var(--darkgreenLowOpacity);
-  border: 1px solid var(--darkgreen);
-  box-shadow: inset  4px 2px 40px var(--darkgreenOpacity);
+  background-color: var(--background);
+  border: 1px solid var(--primary-color);
+  box-shadow: inset  4px 2px 40px var(--primary-color);
   overflow: hidden;
-    height: calc(100vh - 6.2rem);
-    
-    overflow: auto;
+  height: calc(100vh - 4.7rem);
+  overflow: auto;
 
   .bot-header {
     display: flex;

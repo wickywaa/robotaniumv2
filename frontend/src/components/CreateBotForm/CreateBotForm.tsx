@@ -92,7 +92,7 @@ export const CreateEditBotForm: React.FC<ICreateBotModule> = ({close, onSubmit, 
               <input type='file' onChange={e=>{handleImage(e); validateBot()}}/>
               <InputText placeholder='Bot Name' value={botName} onChange={(e)=>setBotName(e.target.value)} />
               <PasswordInput onChange={setBotPassword} value={botPassword}  placeHolder='bot Password'/>
-              <PasswordInput onChange={setbotRepeatPassword} value={botRepeatPassword}  placeHolder='repeat bot Password'/>
+              <PasswordInput onChange={setbotRepeatPassword} value={botRepeatPassword}  placeHolder='repeat bot Password1'/>
               
               <div style={{display:'flex', height:'70%', overflow:'auto'}} >
                 <div style={{display:'flex', flexDirection:'column'}}>

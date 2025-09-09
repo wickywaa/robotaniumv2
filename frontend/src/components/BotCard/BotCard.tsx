@@ -43,7 +43,7 @@ export const BotCard:React.FC<IBotCard> = ({bot, onConnect, onDelete, onEdit}) =
       return (
         <>
       <h1 > {title}</h1>
-      <hr style={{color:"var(--darkgreen)", height:"1px"}}/>
+      <hr style={{color:"var(--primary-color)", height:"1px"}}/>
       </>
       )
     }

@@ -179,10 +179,10 @@ export const CreateEditBotComponent: React.FC<CreateBotInterface> = ({ onSubmit,
       return null;
     }
     return (
-      <div className="flex flex-col items-center justify-center border-2 border-dashed border-secondary rounded-md p-5 ">
-        <i className="pi pi-image mt-3 p-5 bg-primary color-secondary  rounded-full" style={{ fontSize: '5em' }}></i>
-        <Button className="border-2 border-solid border-secondary rounded-sm p-5" onClick={() => InputElement.click()} style={{ fontSize: '1.2em', color: 'var(--text-color-secondary)' }} >
-          Drag and Drop Image or Click to Upload
+      <div className=" flex flex-col items-center justify-center border-2 border-dashed border-primary rounded-md p-5 ">
+        <i className="pi pi-image mt-3 p-5 bg-primary color-secondary rounded-full" style={{ fontSize: '5em' }}></i>
+        <Button className="!text-red-500 border-2 border-solid border-secondary rounded-sm p-5 bg-card" onClick={() => InputElement.click()} style={{ fontSize: '1.2em', color: 'var(--text-color-secondary)' }} >
+          <p style={{color:"white"}} className='text-500-red'   >Drag and Drop Image or Click to Upload</p>
         </Button>
       </div>
     );
@@ -202,7 +202,7 @@ export const CreateEditBotComponent: React.FC<CreateBotInterface> = ({ onSubmit,
         <div className='bot-passwords-form-group'>
           <div style={{ display: 'flex', width: '50%', justifyContent: 'center', position: 'relative' }}>
             <InputText style={{ width: '100%', margin: 0 }} type={showPassword ? 'text' : 'password'} onChange={(e) => setPassword(e.currentTarget.value)} placeholder='Bot Password' />
-            <i style={{ color: '#4ddfc0' }} onClick={() => setShowPassword(!showPassword)} className={`absolute hoverIcon  right-2 top-4 ${!showPassword ? 'pi pi-eye' : 'pi pi-eye-slash'}`}></i>
+            <i style={{color:"var(--primary-color)"}}  onClick={() => setShowPassword(!showPassword)} className={`!text-red-500 absolute hoverIcon  right-2 top-4 ${!showPassword ? 'pi pi-eye' : 'pi pi-eye-slash'}`}></i>
           </div>
         </div>
         <div style={{ width: '50%', margin: 'auto' }}>

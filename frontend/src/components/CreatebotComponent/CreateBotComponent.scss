@@ -1,18 +1,15 @@
 .create-bot-form {
   width: 40%;
-  border: 1px solid var(--darkgreen);
+  border: 1px solid var(--primary-color);
   margin: auto;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   
    .file-upload-component {
-     background-color: var(--darkgreenOpacity);
+     background-color: var(--card);
      width: 50%;
      margin: auto;
-
-   
-
   }
   .custom-choose-btn .p-tooltip  {
       background-color: red;
@@ -39,22 +36,20 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      .create-bot-password {
-        
+      .create-bot-password {  
         width: 50%;
       }
     }
   }
 
   .custom-choose-btn {
-    background-color: var(--darkgreen);
-    color: black;
-    
+    background-color: var(--primary-color);
+    color: white;
   }
 
   .custom-choose-btn:hover {
-    background-color: var(--darkgreen);
-    color: var(--surface-d);
+    background-color: var(--primary-color);
+    color: var(--card);
   }
 
 }

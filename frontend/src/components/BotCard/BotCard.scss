@@ -1,13 +1,13 @@
 .bot-card {
   width: 70%;
-  background: var(--darkgreenLowOpacity);
+  background: var(--card);
   border-radius: 12px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: row;
   overflow: hidden;
-  border: 1px solid var(--darkgreen);
-  box-shadow: inset 20px 20px 80px var(--darkgreenOpacity);
+  border: 1px solid var(--primary-color);
+  box-shadow: inset 20px 20px 80px var(--primary-color);
 
 
   .p-card-header {
@@ -54,17 +54,17 @@
       padding: 0.5rem 1rem;
       border-radius: 20px;
       font-size: 0.875rem;
-      color: var(--darkgreen);
+      color: var(--primary-color);
       border-radius: 24px;
       font-weight: 600;
-      box-shadow: 2px 2px 5px var(--darkgreen);
-      border: 1px solid var(--darkgreen);
+      box-shadow: 2px 2px 5px var(--primary-color);
+      border: 1px solid var(--primary-color);
     }
   }
 
   .p-card-footer {
     padding: 1rem 1.5rem;
-    border-top: 1px solid var(--darkgreen);
+    border-top: 1px solid var(--primary-color);
   }
 
   .bot-card-footer {
