@@ -1,9 +1,10 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { put, takeEvery } from "redux-saga/effects";
 import { IConfirmEmailCredentials, ILoggedInUser, ILoginCredentials, IRegisterCredentials } from "../../../models";
-import { AuthService, validateisLoginCredentials } from '../../../services/';
+import {  validateisLoginCredentials } from '../../../services/';
 import { confirmEmailFailed, confirmEmailSuccess, loginFailed, loginSuccess, logout, registerUserFailed, registerUserSuccess, setResetPasswordTokenFailed, setResetPasswordTokenSuccess } from '../../slices/';
 import { addMessage, toastSlice } from "../../slices/toastslice";
+import  { AuthService } from '../../../services/authServices';
 const authService = new AuthService();
 
 function * loginUser(action: PayloadAction<ILoginCredentials>) {

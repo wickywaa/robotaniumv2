@@ -1,11 +1,10 @@
 import React from "react";
-import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 
 import { Button } from 'primereact/button';
 import { Menubar } from "primereact/menubar";
 import { MenuItem } from "primereact/menuitem";
-import robotaniumLogo from "../../../assets/images/icononly_transparent_nobuffer.png";
 import { GavoomLogo } from "../../../assets/images/svglogo";
 import { selectUser } from "../../../store/selectors";
 import { logoutAttempt } from "../../../store/slices";
@@ -24,11 +23,16 @@ export const NavigationBar: React.FC = () => {
   const navigate = useNavigate();
 
   const start = () => {
-    return <div style={{height:"200", width:"100px", background:'red'}} ><GavoomLogo /></div>
-  } ;
+    return <div style={{ height: "200", width: "100px", background: 'red' }} ><GavoomLogo /></div>
+  };
   const end = () => {
     return <Button className={`text-white border-primary border-solid border-1 border-primary`} onClick={(() => dispatch(logoutAttempt()))} title="Logout">logout</Button>
   };
+
+  const navigateToPage = (path: string) => {
+    navigate(path)
+    localStorage.setItem('lastPath', path)
+  }
   const items: IMenuItemWithBadge[] = [
     {
       label: "Profile",
@@ -37,13 +41,13 @@ export const NavigationBar: React.FC = () => {
     },
     {
       label: "My Bots",
-      command: () => navigate("/bots"),
+      command: () => navigateToPage("/bots"),
       icon: "pi pi-star",
       id: "features",
     },
     {
       label: "Rooms",
-      command: () => navigate("/rooms"),
+      command: () => navigateToPage("/rooms"),
       icon: "pi pi-search",
       id: "projects",
     },

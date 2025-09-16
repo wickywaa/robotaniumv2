@@ -27,17 +27,7 @@ export class BotService {
   }
 
 
-  fetchBots = async(): Promise<IBot[]> =>{
-
-    try {
-      console.log('trying to return bots')
-        return baseAxios.get('bot')
-    } 
-    catch (e:any) {
-      throw new Error("invalid request", e)
-    }
-    
-  }
+  fetchBots = async(): Promise<IBot[]> => (await baseAxios.get('bot')).data;
 
   deleteBots = async(id:string): Promise<void> =>baseAxios.delete(`bot/${id}`)
 

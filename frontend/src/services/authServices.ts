@@ -6,10 +6,10 @@ import { baseAxios } from './';
 
 export class AuthService  {
 
-  login = async (user: ILoginCredentials): Promise<ILoggedInUser | null | {unverified: boolean}> => {
+  login = async (user: ILoginCredentials): Promise<{user:ILoggedInUser | null, token:string }> => {
 
     try {
-        return baseAxios.post<ILoggedInUser>('users/login',
+        return baseAxios.post<{user: ILoggedInUser, token:string}>('users/login',
           {
             email: user.email,
             password: user.password
@@ -69,7 +69,7 @@ export class AuthService  {
     }
   };
 
-  resendConfirmationCode = async (email:string): Promise<boolean> => {
+  resendConfirmationCode = async (email:string): Promise<any> => {
     try {
       return baseAxios.post<boolean>('users/resendconfirmationcode',
         {
@@ -80,9 +80,11 @@ export class AuthService  {
   }
   }
 
-  loginWithToken = async (): Promise<{data:{user:ILoggedInUser, token:string}} | null> => {
+  loginWithToken = async (): Promise<{user:ILoggedInUser, token:string} | null> => {
     try {
-      return baseAxios.post<{data:{user:ILoggedInUser, token:string}}>('users/authenticate')
+      return baseAxios.post<{user:ILoggedInUser, token:string}>('users/authenticate').then((response)=>{
+        return response.data
+      })  
     } catch (e) {
       throw new Error("Invalid");
     }

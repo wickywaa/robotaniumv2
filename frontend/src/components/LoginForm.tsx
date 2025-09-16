@@ -1,20 +1,23 @@
-import { useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 import { InputText } from "primereact/inputtext";
 import { useNavigate } from "react-router-dom";
 import validator from "validator";
+import { useAuth } from "../context/AuthContext";
+import { useAuthMutations } from '../hooks/useAuth';
 import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { selectErrors, selectUser } from "../store/selectors";
-import { addError, confirmEmailAttempt, removeErrorByType, requestLogin } from "../store/slices";
+import { selectErrors } from "../store/selectors";
+import { addError, confirmEmailAttempt, removeErrorByType } from "../store/slices";
 import { ConfirmEmailModal } from "./Auth";
 
 export const LoginForm = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { loginMutation } = useAuthMutations();
 
-  const user = useAppSelector(selectUser);
+  const { user } = useAuth();
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -22,7 +25,7 @@ export const LoginForm = () => {
   const errors = useAppSelector(selectErrors);
   const getBorderClass = (field: ErrorType) => (errors.find((error) => error.type === field) ? "inputError" : "border-secondary");
 
-  const footer = (
+  const footer: ReactElement = (
     <>
       <div className="w-full flex flex-column justify-center items-center">
         <Button onClick={() => handleLogin()} className="bg-secondary text-primary-color w-32 h-8 " label="login" title="login" />
@@ -83,7 +86,9 @@ export const LoginForm = () => {
 
   const handleLogin = () => {
     if (checkforErrors()) return;
-    dispatch(requestLogin({ email, password }));
+    loginMutation.mutate({ email, password })
+
+    //dispatch(requestLogin({ email, password }));
   };
 
   const onFormEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -93,6 +98,7 @@ export const LoginForm = () => {
   };
 
   useEffect(() => {
+    console.log('user updtaed',)
     if (user?.isEmailVerified) {
       navigate("/");
     }
@@ -129,7 +135,7 @@ export const LoginForm = () => {
             onKeyUp={onFormEnter}
 
           />
-          <i  onClick={() => setShowPassword(!showPassword)} className={`absolute hoverIcon fill-current text-primary current-primary right-2 top-5 ${!showPassword ? 'pi pi-eye' : 'pi pi-eye-slash'}`}></i>
+          <i onClick={() => setShowPassword(!showPassword)} className={`absolute hoverIcon fill-current text-primary current-primary right-2 top-5 ${!showPassword ? 'pi pi-eye' : 'pi pi-eye-slash'}`}></i>
         </div>
       </Card>
     ) : !user.isEmailVerified ? (
