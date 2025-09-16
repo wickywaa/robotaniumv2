@@ -3,13 +3,11 @@ package controllers
 import (
 	"backendv2/models"
 	"backendv2/pkg/database"
-	"fmt"
 
 	"github.com/gofiber/fiber/v2"
 )
 
 func DeleteBot(c *fiber.Ctx) error {
-	fmt.Println("DeleteBot called")
 
 	id := c.Params("id")
 	if id == "" {

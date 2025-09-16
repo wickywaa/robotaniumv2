@@ -16,8 +16,6 @@ import (
 )
 
 func UpdateBot(c *fiber.Ctx) error {
-
-	fmt.Println("UpdateBot called")
 	botIDStr := c.Params("id")
 	userInterface := c.Locals("user")
 
@@ -59,8 +57,6 @@ func UpdateBot(c *fiber.Ctx) error {
 
 	var objectName string
 	if noFile == nil {
-
-		fmt.Println("made here pic")
 		file, err := fileHeader.Open()
 		if err != nil {
 			return c.Status(fiber.StatusInternalServerError).SendString("Cannot open file")
@@ -104,8 +100,6 @@ func UpdateBot(c *fiber.Ctx) error {
 
 	if updated {
 		if err := db.Save(bot).Error; err != nil {
-			fmt.Println("made here save bot", bot)
-			fmt.Printf("%+v\n", bot)
 			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": fmt.Sprintf("Failed to create bot: %v", err)})
 		}
 	}
@@ -115,18 +109,12 @@ func UpdateBot(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"error": "Invalid botId",
 		})
-
-		for i := range req.Cockpit {
-			req.Cockpit[i].BotID = botID
-		}
 	}
 
 	var toInsert []models.Cockpit
 	var toUpdate []models.Cockpit
 
 	for i, cp := range req.Cockpit {
-
-		fmt.Sprintf("Cockpit at index %d is missing a name", cp.BotID)
 		if cp.Name == "" {
 			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 				"error": fmt.Sprintf("Cockpit at index %d is missing a name", i),
@@ -152,14 +140,6 @@ func UpdateBot(c *fiber.Ctx) error {
 		} else {
 			toUpdate = append(toUpdate, cp)
 		}
-	}
-
-	for i, cp := range toUpdate {
-		fmt.Printf("Cockpit to update %d: ID=%d, Name=%s, BotID=%d\n", i, cp.ID, cp.Name, cp.BotID)
-	}
-
-	for i, cp := range toInsert {
-		fmt.Printf("Cockpit to insert %d: ID=%d, Name=%s, BotID=%d\n", i, cp.ID, cp.Name, cp.BotID)
 	}
 
 	for _, cp := range toUpdate {

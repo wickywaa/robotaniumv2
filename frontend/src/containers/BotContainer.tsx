@@ -10,13 +10,15 @@ import { LoadingSpinner } from "../components";
 import { BotCard } from "../components/BotCard/BotCard";
 import { ConfirmDialog } from "../components/ConfirmDialog/ConfirmDialog";
 import { CreateEditBotComponent } from "../components/CreatebotComponent/CreateBotComponent";
+import { useBotMutations } from "../hooks/useBots";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { selectBots, selectBotsLoading } from "../store/selectors";
+import { selectBotsLoading } from "../store/selectors";
 import { createBotAttempt, deleteBotByIdAttempt, updateBotAttempt } from "../store/slices/botSlice";
 
 export const BotContainer: React.FC = () => {
   const dispatch = useAppDispatch();
-  const bots = useAppSelector(selectBots);
+  const botsMutation = useBotMutations();
+  const { data: bots, isLoading, isError, error } = useBotMutations().botsQuery;
   const botsLoading = useAppSelector(selectBotsLoading);
   const [showCreateDialog, setShowCreateDialog] = useState(false);
   const [showEditDialog, setShowEditDialog] = useState<{ open: boolean; bot: IBot | null }>({
@@ -80,7 +82,8 @@ export const BotContainer: React.FC = () => {
       </div>
 
       <div className="bot-grid">
-        {bots.map((bot) => {
+        {bots && Array.isArray(bots) && bots.length > 0 && bots.map((bot) => {
+          console.log(bots)
           return (
             <BotCard
               key={bot.id}
@@ -106,7 +109,7 @@ export const BotContainer: React.FC = () => {
         )}
       </Dialog>
 
-      {botsLoading ? <LoadingSpinner overLay={true} /> : null}
+      {isLoading ? <LoadingSpinner overLay={true} /> : null}
       {showConfirm.open === true && showConfirm?.botId?.length ? (
         <ConfirmDialog
           onHide={() => setShowConfirm({ open: false, botId: "" })}
