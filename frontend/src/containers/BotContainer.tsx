@@ -13,7 +13,6 @@ import { CreateEditBotComponent } from "../components/CreatebotComponent/CreateB
 import { useBotMutations } from "../hooks/useBots";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { selectBotsLoading } from "../store/selectors";
-import { createBotAttempt, deleteBotByIdAttempt, updateBotAttempt } from "../store/slices/botSlice";
 
 export const BotContainer: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -32,7 +31,7 @@ export const BotContainer: React.FC = () => {
   });
 
   const handleCreateBot = (bot: ICreateBotDTo) => {
-    dispatch(createBotAttempt(bot));
+    botsMutation.createBotMutation.mutate(bot)
     setShowCreateDialog(false);
   };
 
@@ -41,7 +40,7 @@ export const BotContainer: React.FC = () => {
   };
 
   const handleDeleteBot = (botId: string) => {
-    dispatch(deleteBotByIdAttempt(botId));
+    botsMutation.deleteBotMutation.mutate(botId);
     setShowConfirm({
       open: false,
       botId: "",
@@ -56,7 +55,7 @@ export const BotContainer: React.FC = () => {
   };
 
   const handleSaveEdit = (id: string, bot: ICreateBotDTo) => {
-    dispatch(updateBotAttempt({ id, bot }))
+    botsMutation.editBotMutation.mutate({ botId: id, bot })
     setShowEditDialog({
       open: false,
       bot: null

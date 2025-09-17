@@ -10,16 +10,12 @@ import { ILoggedInUser } from "./models";
 import { AppRouter } from "./routes/App";
 import { store } from './store/store';
 
-
-
 const queryClient = new QueryClient();
 export const user: ILoggedInUser | null = store.getState().auth.user;
-
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 
 const renderApp = () => {
-  console.log("renderApp")
   return root.render(
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
@@ -31,8 +27,6 @@ const renderApp = () => {
       </QueryClientProvider>
     </Provider>
   );
-
 }
 
 renderApp()
-

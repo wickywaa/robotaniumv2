@@ -1,6 +1,6 @@
 
 import { Button } from 'primereact/button';
-import { FileUpload, FileUploadHeaderTemplateOptions, FileUploadSelectEvent, FileUploadUploadEvent, ItemTemplateOptions, } from 'primereact/fileupload';
+import { FileUpload, FileUploadHeaderTemplateOptions, FileUploadSelectEvent, ItemTemplateOptions } from 'primereact/fileupload';
 import { InputText } from 'primereact/inputtext';
 import { ProgressBar } from 'primereact/progressbar';
 import { Tag } from 'primereact/tag';
@@ -44,21 +44,18 @@ export const CreateEditBotComponent: React.FC<CreateBotInterface> = ({ onSubmit,
 
   const getCameraErrors = (): string[] => {
     const errors = [];
-    const cockpitNames =  cockpits.filter((cockpit)=>cockpit.name.length >3).map((c)=>c.name)
-    const hasDuplicates = cockpitNames.filter((name,index, array )=> array.indexOf(name) !== index)
+    const cockpitNames = cockpits.filter((cockpit) => cockpit.name.length > 3).map((c) => c.name)
+    const hasDuplicates = cockpitNames.filter((name, index, array) => array.indexOf(name) !== index)
 
-    const emptyNames =  cockpits.some((cockpit)=> cockpit.name.length < 3) ?? false;
+    const emptyNames = cockpits.some((cockpit) => cockpit.name.length < 3) ?? false;
 
-    if(emptyNames) errors.push('Cameras need to include a name ');
-    if(hasDuplicates.length) errors.push('Camera names must all be unique')
+    if (emptyNames) errors.push('Cameras need to include a name ');
+    if (hasDuplicates.length) errors.push('Camera names must all be unique')
 
     return errors;
-  } 
-
+  }
 
   const isFormValid = (): boolean => {
-
-
     const cameraErrors = getCameraErrors()
     const tempErrors = [];
     if (!botName) tempErrors.push('Bot name is required');
@@ -104,7 +101,7 @@ export const CreateEditBotComponent: React.FC<CreateBotInterface> = ({ onSubmit,
       _totalSize += files[i].size || 0;
     }
 
-    if(_totalSize > 10000000) {
+    if (_totalSize > 10000000) {
       return setErrors([...errors, 'too big'])
     }
 
@@ -182,7 +179,7 @@ export const CreateEditBotComponent: React.FC<CreateBotInterface> = ({ onSubmit,
       <div className=" flex flex-col items-center justify-center border-2 border-dashed border-primary rounded-md p-5 ">
         <i className="pi pi-image mt-3 p-5 bg-primary color-secondary rounded-full" style={{ fontSize: '5em' }}></i>
         <Button className="!text-red-500 border-2 border-solid border-secondary rounded-sm p-5 bg-card" onClick={() => InputElement.click()} style={{ fontSize: '1.2em', color: 'var(--text-color-secondary)' }} >
-          <p style={{color:"white"}} className='text-500-red'   >Drag and Drop Image or Click to Upload</p>
+          <p style={{ color: "white" }} className='text-500-red'   >Drag and Drop Image or Click to Upload</p>
         </Button>
       </div>
     );
@@ -202,7 +199,7 @@ export const CreateEditBotComponent: React.FC<CreateBotInterface> = ({ onSubmit,
         <div className='bot-passwords-form-group'>
           <div style={{ display: 'flex', width: '50%', justifyContent: 'center', position: 'relative' }}>
             <InputText style={{ width: '100%', margin: 0 }} type={showPassword ? 'text' : 'password'} onChange={(e) => setPassword(e.currentTarget.value)} placeholder='Bot Password' />
-            <i style={{color:"var(--primary-color)"}}  onClick={() => setShowPassword(!showPassword)} className={`!text-red-500 absolute hoverIcon  right-2 top-4 ${!showPassword ? 'pi pi-eye' : 'pi pi-eye-slash'}`}></i>
+            <i style={{ color: "var(--primary-color)" }} onClick={() => setShowPassword(!showPassword)} className={`!text-red-500 absolute hoverIcon  right-2 top-4 ${!showPassword ? 'pi pi-eye' : 'pi pi-eye-slash'}`}></i>
           </div>
         </div>
         <div style={{ width: '50%', margin: 'auto' }}>
